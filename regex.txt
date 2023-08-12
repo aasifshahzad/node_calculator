@@ -1,0 +1,28 @@
+The regular expression `/([-]?\d+(\.\d+)?)([+\-*\/])([-]?\d+(\.\d+)?)/` is designed to match mathematical expressions that consist of two numbers separated by an arithmetic operator. Here's how the different parts of the regular expression work:
+
+1. `([-]?\d+(\.\d+)?)`: This part matches a number, which could be negative and/or decimal. Let's break it down:
+   - `[-]?` matches an optional minus sign for negative numbers.
+   - `\d+` matches one or more digits.
+   - `(\.\d+)?` matches an optional group that includes a dot followed by one or more digits (for decimal part).
+
+2. `([+\-*\/])`: This part matches an arithmetic operator (`+`, `-`, `*`, or `/`).
+
+So, the entire regular expression captures two numbers separated by an arithmetic operator. Each number can be a combination of optional negative sign and optional decimal part.
+
+With this regular expression, when applied to a valid mathematical expression, you'll get multiple capture groups:
+
+- `match[1]`: The first captured number (including optional negative sign and decimal part).
+- `match[2]`: The decimal part of the first number (if present).
+- `match[3]`: The captured arithmetic operator.
+- `match[4]`: The second captured number (including optional negative sign and decimal part).
+- `match[5]`: The decimal part of the second number (if present).
+
+Here's an example of how the captures would work for an input like `"5.25 * -2.75"`:
+
+- `match[1]` would be `"5.25"`.
+- `match[2]` would be `".25"`.
+- `match[3]` would be `"*"`.
+- `match[4]` would be `"-2.75"`.
+- `match[5]` would be `".75"`.
+
+It's important to note that not all captures will necessarily have values, as the optional parts may be absent in the input. Also, be cautious when using the captured parts, as they may contain strings, not actual numbers, so you'll need to convert them to appropriate number types using `parseFloat` or similar functions.
